@@ -1,3 +1,21 @@
+// children이 몇 개 들어올 지 알 수 없다.
+function createElement(type, props: {} = {}, ...children) {
+  return {
+    type,
+    props: {
+      ...props,
+      children: children.map((child) => (
+        // child 타입이 문자열인지 노드인지 모른다.
+        typeof child === 'string' ? createTextElement(child) : child
+      ))
+    },
+  }
+}
+
+function createTextElement(value) {
+  return createElement('TEXT_ELEMENT', { nodeValue: value })
+}
+
 const React = {
   createElement,
 }
